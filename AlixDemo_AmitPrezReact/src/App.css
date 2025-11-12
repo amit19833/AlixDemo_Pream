@@ -40,3 +40,14 @@
 .read-the-docs {
   color: #888;
 }
+
+.appNavigation{
+   position: absolute; /* Positions the div out of the normal flow */
+  top: 0;             /* Aligns the top edge to the top of its containing element */
+  left: 0;            /* Aligns the left edge to the left of its containing element */
+  z-index: 999;
+  background-color: blue;
+  width: 100%;
+  color: white;
+  text-align: left;
+}

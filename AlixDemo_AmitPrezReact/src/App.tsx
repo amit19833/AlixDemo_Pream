@@ -1,88 +1,89 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Route, Routes, Link, useParams } from "react-router-dom";
+import "./App.css";
+import { Tickets } from "./Tickets";
+import { LandingPage } from "./Landing";
+import { PickSeats } from "./PickSeats";
+import { FourOhFour } from "./FourOhFour";
+import { FilmDetails } from "./FilmDetails";
 
-import LandingPage from './LandingPage';
+function App() {
 
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import FilmDetails from './FilmDetails';
-import PickSeats from './PickSeats';
-import Checkout from './Checkout';
-import Ticket from './Tickets';
-import NotFound from './NotFound'; 
+  //const showingId  = useParams(showingId:number)
 
-const App: React.FC = () => (
+  return (
+    <>
+      <header>
+        <Nav />
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/films/:filmId" element={<FilmDetails />} />
+          <Route path="/tickets" element={<Tickets />} />
+          <Route path="/pickseats/:showingId" element={<PickSeats />} />
+          <Route path="*" element={<FourOhFour />} />
+        </Routes>
+      </header>
+    </>
+  );
+}
 
-   <Router>
-    <nav>
-      <ul>
-        <li>
-          <Link to="/">LandingPage</Link>
-        </li>
-        <li>
-          <Link to="/FilmDetails">FilmDetails</Link>
-        </li>
-        <li>
-          <Link to="/PickSeats">PickSeats</Link>
-        </li>
-         <li>
-          <Link to="/Checkout">Checkout</Link>
-        </li>
-         <li>
-          <Link to="/Ticket">Ticket</Link>
-        </li>
-         <li>
-          <Link to="/NotFound">NotFound</Link>
-        </li>
-      </ul>
-    </nav>
-    <Routes>
-      <Route path="/" element={<LandingPage />} />
-      <Route path="/FilmDetails/:FilmId" element={<FilmDetails />} />
-      <Route path="/PickSeats/:ShowingId" element={<PickSeats />} />
-      <Route path="/Checkout" element={<Checkout />} />
-       <Route path="/Ticket" element={<Ticket />} />
-       <Route path="*" element={<NotFound />} />
-      
-    </Routes>
-  </Router>
-)
-//   const [count, setCount] = useState(0)
-//   const currentYear = new Date().getFullYear();
+function Nav() {
+  const user = {
+    id: 1,
+    username: "admin",
+    password: "pass",
+    first: "Administrative",
+    last: "User",
+    phone: "(555) 943-2230",
+    email: "admin@daam.com",
+    imageUrl: "https://randomuser.me/api/portraits/women/70.jpg",
+    creditCard: {
+      pan: "",
+      expiryMonth: 6,
+      expiryYear: 2025,
+    },
+    adminUser: true,
+    isServer: false,
+  };
 
-//   return (
-//     <>
-//     {/* <div>       
-//         <a href="https://vite.dev" target="_blank">
-//           <img src={viteLogo} className="logo" alt="Vite logo" />
-//         </a>
-//       </div>
-//       <div><p>Movietime</p>
-//       <p>Movie1</p>
-//       <p>Movie2</p>
-//       <p>Movie3</p>
-//       <p>Movie4</p>  
-//       </div>
-//       <header><nav>TEST</nav></header>
-                
-      
-//           <Routes>
-//             <Route path="/" element={<LandingPage />} />
-//             <Route path="/about" element={<About />} />
-//             <Route path="/contact" element={<Contact />} />
-//             <Route path="*" element={<UserProfile />} />
-//           </Routes>
-       
-      
-//       <footer>
-//         <p>&copy; {currentYear} AlixReactDemo. All rights reserved.</p>
-//       </footer> */}
-//     </>
-    
-//   )
-// }
+  return (
+    <div className="appNavigation">
+      <span>
+        <Link to="/">Home</Link>
+      </span>
+      <span>
+        <Link to="/Films/12345">Films</Link>
+      </span>
+      <span>
+        <Link to="/tickets">Tickets</Link>
+      </span>
+      <span>
+        <Link to="/pickseats/12345">Pick Seats</Link>
+      </span>
 
+      {user ? (
+        <span>
+          <span>
+            <Link to="/Account">Account</Link>
+          </span>
+          <span>
+            <Link to="/logout">Logout</Link>
+          </span>
+          <span>
+            <Link to="/cart">Cart</Link>
+          </span>
+        </span>
+      ) : (
+        <span>
+          <span>
+            <Link to="/register">Register</Link>
+          </span>
+          <span>
+            <Link to="/login">Login</Link>
+          </span>
+        </span>
+      )}
+    </div>
+  );
+}
 
-
-export default App
+export default App;
